@@ -1,0 +1,32 @@
+---
+title: StashBridge
+description: Sync localStorage across browsers and devices
+template: splash
+hero:
+  tagline: A lightweight browser extension + free relay server that syncs localStorage across all your browsers.
+  actions:
+    - text: Get Started
+      link: /getting-started/overview/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/cybersader/stashbridge
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Free Forever" icon="star">
+    Runs on Cloudflare's free tier. Zero monthly cost for personal use.
+  </Card>
+  <Card title="Cross-Browser" icon="random">
+    Chrome, Firefox, and Edge. Manifest V3 compatible.
+  </Card>
+  <Card title="Self-Hosted" icon="setting">
+    Your data, your server. Deploy in 5 minutes with GitHub Actions.
+  </Card>
+  <Card title="Simple" icon="approve-check">
+    Whitelist sites, set a token, done. Last-write-wins, no complexity.
+  </Card>
+</CardGrid>

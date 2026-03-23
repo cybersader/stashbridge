@@ -1,0 +1,5 @@
+{
+  "name": "stashbridge",
+  "private": true,
+  "workspaces": ["packages/*"]
+}

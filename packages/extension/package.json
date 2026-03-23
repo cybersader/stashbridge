@@ -1,0 +1,23 @@
+{
+  "name": "@stashbridge/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt --browser firefox",
+    "build:chrome": "wxt build --browser chrome",
+    "build:firefox": "wxt build --browser firefox",
+    "zip:chrome": "wxt zip --browser chrome",
+    "zip:firefox": "wxt zip --browser firefox"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "wxt": "^0.20.0",
+    "@wxt-dev/module-svelte": "^2.0.0",
+    "svelte": "^5.0.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}
