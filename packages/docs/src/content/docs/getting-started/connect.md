@@ -1,46 +1,59 @@
 ---
 title: Connect & Sync
-description: Connect the extension to your server and start syncing.
+description: Set up syncing with browser sync or a server relay.
 sidebar:
   order: 4
 ---
 
-With the extension installed and server deployed, connect them:
+## Browser Sync (Default)
 
-## 1. Open Extension Settings
+Browser Sync works immediately with no configuration. Just:
 
-Click the StashBridge icon in your browser toolbar, then click the gear icon (top right).
+1. **Make sure you're signed into your browser's sync** (Chrome Sync, Firefox Sync, Brave Sync, etc.)
+2. **Add whitelist rules** for the sites you want to sync
+3. That's it — data syncs automatically across all your devices using the same browser
 
-## 2. Enter Server URL
-
-Paste your worker URL:
-```
-https://stashbridge-worker.<your-subdomain>.workers.dev
-```
-
-## 3. Enter API Token
-
-Enter the same token you set as `STASHBRIDGE_TOKEN` on your worker. Or click **Gen** to generate one (then update the worker secret to match).
-
-## 4. Save
-
-Click **Save**. The status indicator should turn green.
-
-## 5. Add Your First Whitelist Rule
+### Add Your First Whitelist Rule
 
 1. Navigate to a site you want to sync (e.g., `https://www.obsidianstats.com`)
-2. Click the StashBridge icon
+2. Click the StashBridge icon in your toolbar
 3. The **Origin** field auto-fills with the current site
 4. Enter a specific localStorage key, or check **sync all keys**
 5. Click **Add Rule**
 
-## 6. Repeat on Other Browsers
+### Storage Usage
 
-Install the extension on your other browsers, enter the same server URL and token, and add the same whitelist rules. Changes will sync automatically every 60 seconds, or click **Sync Now** to sync immediately.
+Browser Sync has a 100KB limit. StashBridge compresses data (typically 50-70% reduction), so you effectively get ~200-300KB of raw data. The popup shows a usage bar so you can monitor this.
+
+### Optional Encryption
+
+1. Open Settings (gear icon)
+2. Check **Encrypt synced data**
+3. Enter a passphrase
+4. **Important**: Enter the same passphrase on every browser. It's stored locally only — not synced.
+
+## Server Relay (Optional)
+
+To sync across *different* browsers (Chrome to Firefox), switch to Server Relay or Both mode:
+
+1. [Deploy the server](/stashbridge/getting-started/deploy-server/) first
+2. Open StashBridge Settings (gear icon)
+3. Change **Sync Mode** to "Server Relay" or "Both"
+4. Enter your worker URL and API token
+5. Click **Save**
+
+### Sync Modes
+
+| Mode | What it does |
+|------|-------------|
+| **Browser Sync** (default) | Uses Chrome/Firefox/Brave built-in sync. No server needed. Same browser only. |
+| **Server Relay** | Uses your Cloudflare Worker. Works across different browsers. |
+| **Both** | Uses both. Browser sync for same-browser devices, server for cross-browser. |
 
 ## How Sync Works
 
-- **Local changes**: When a whitelisted site writes to `localStorage`, the extension captures it and pushes to your server within 500ms
-- **Remote changes**: Every 60 seconds, the extension pulls new changes from the server and applies them to open tabs
-- **Conflicts**: Last-write-wins by timestamp. If two browsers write the same key at nearly the same time, the later write wins
+- **Local changes**: When a whitelisted site writes to `localStorage`, the extension captures it and pushes within 500ms
+- **Remote changes**: Every 60 seconds, the extension pulls new changes and applies them to open tabs
+- **Conflicts**: Last-write-wins by timestamp
 - **Offline**: Changes queue locally and push when connectivity returns
+- **Compression**: All synced data is compressed with LZ-String before storage

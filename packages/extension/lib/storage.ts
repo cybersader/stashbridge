@@ -1,5 +1,5 @@
 import { STORAGE_KEYS } from './constants';
-import type { WhitelistRule, SyncEntry } from './types';
+import type { WhitelistRule, SyncEntry, SyncMode } from './types';
 
 export async function getWhitelist(): Promise<WhitelistRule[]> {
   const result = await browser.storage.local.get(STORAGE_KEYS.WHITELIST);
@@ -48,6 +48,21 @@ export async function addPendingChange(entry: SyncEntry): Promise<void> {
     pending.push(entry);
   }
   await setPendingChanges(pending);
+}
+
+export async function getSyncMode(): Promise<SyncMode> {
+  const result = await browser.storage.local.get(STORAGE_KEYS.SYNC_MODE);
+  return (result[STORAGE_KEYS.SYNC_MODE] as SyncMode) ?? 'browser';
+}
+
+export async function getEncryptionEnabled(): Promise<boolean> {
+  const result = await browser.storage.local.get(STORAGE_KEYS.ENCRYPTION_ENABLED);
+  return (result[STORAGE_KEYS.ENCRYPTION_ENABLED] as boolean) ?? false;
+}
+
+export async function getEncryptionPassphrase(): Promise<string> {
+  const result = await browser.storage.local.get(STORAGE_KEYS.ENCRYPTION_PASSPHRASE);
+  return (result[STORAGE_KEYS.ENCRYPTION_PASSPHRASE] as string) ?? '';
 }
 
 export function isWhitelisted(origin: string, key: string, whitelist: WhitelistRule[]): boolean {

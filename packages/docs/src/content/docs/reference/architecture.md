@@ -14,13 +14,29 @@ description: How StashBridge works under the hood.
 │  │  world)  │  │  world)  │  │  worker)  │ │
 │  └──────────┘  └──────────┘  └─────┬─────┘ │
 └─────────────────────────────────────┼───────┘
-                                      │ HTTPS
-                              ┌───────▼───────┐
-                              │  Cloudflare   │
-                              │   Worker      │
-                              │  + D1 (SQLite)│
-                              └───────────────┘
+                                      │
+                        ┌─────────────┼──────────────┐
+                        │             │              │
+                ┌───────▼───────┐  ┌──▼───────────┐  │
+                │ chrome.storage│  │  Cloudflare  │  │
+                │ .sync         │  │  Worker + D1 │  │
+                │ (default)     │  │  (optional)  │  │
+                └───────────────┘  └──────────────┘  │
+                        │                            │
+                        └────────────────────────────┘
 ```
+
+## Sync Backends
+
+StashBridge supports two sync backends:
+
+### Browser Sync (Default)
+Uses `chrome.storage.sync` — the browser's built-in synced storage. Data is compressed with LZ-String and optionally encrypted with AES-256-GCM before being stored. Syncs automatically via Chrome Sync, Firefox Sync, or Brave Sync.
+
+**Constraints**: 100KB total, 8KB per item, 512 items max, same browser brand only.
+
+### Server Relay (Optional)
+Uses a Cloudflare Worker + D1 database. No storage limits (practical). Works across different browser brands. Requires deployment.
 
 ## The Two-Script Bridge
 

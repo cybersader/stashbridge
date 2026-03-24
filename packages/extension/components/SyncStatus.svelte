@@ -1,12 +1,15 @@
 <script lang="ts">
-  let { connected, lastSync, pending, onSyncNow }: {
+  import type { SyncMode } from '../lib/types';
+
+  let { connected, lastSync, pending, syncMode, onSyncNow }: {
     connected: boolean;
     lastSync: number;
     pending: number;
+    syncMode: SyncMode;
     onSyncNow: () => void;
   } = $props();
 
-  let relativeTime = $derived(formatRelative(lastSync));
+  let relativeTime = $state(formatRelative(lastSync));
 
   function formatRelative(ts: number): string {
     if (!ts) return 'never';
@@ -17,7 +20,12 @@
     return `${Math.floor(diff / 3600)}h ago`;
   }
 
-  // Refresh relative time every 5s
+  let modeLabel = $derived(
+    syncMode === 'browser' ? 'Browser Sync' :
+    syncMode === 'server' ? 'Server Relay' :
+    'Browser + Server'
+  );
+
   $effect(() => {
     const interval = setInterval(() => {
       relativeTime = formatRelative(lastSync);
@@ -29,9 +37,9 @@
 <div class="flex items-center justify-between px-4 py-3">
   <div class="flex items-center gap-2 text-sm">
     <span class="w-2 h-2 rounded-full {connected ? 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.5)]' : 'bg-red-400 shadow-[0_0_6px_rgba(248,113,113,0.5)]'}"></span>
-    <span class="text-white/70">{connected ? 'Connected' : 'Not configured'}</span>
+    <span class="text-white/70">{modeLabel}</span>
     {#if lastSync}
-      <span class="text-white/40">Last: {relativeTime}</span>
+      <span class="text-white/40">{relativeTime}</span>
     {/if}
     {#if pending > 0}
       <span class="text-amber-400/80 text-xs">{pending} pending</span>
