@@ -8,7 +8,7 @@ export default defineConfig({
     starlight({
       title: 'StashBridge',
       logo: {
-        src: './src/assets/logo.svg',
+        src: './src/assets/logo.png',
       },
       description: 'Sync localStorage across browsers and devices',
       social: {

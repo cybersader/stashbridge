@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.svg" alt="StashBridge" width="128" height="128">
+  <img src="logo.png" alt="StashBridge" width="128" height="128">
 </p>
 
 <h1 align="center">StashBridge</h1>

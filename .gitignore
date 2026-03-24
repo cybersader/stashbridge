@@ -8,5 +8,6 @@ dist/
 .env
 .env.*
 !.env.example
+drafts/
 .DS_Store
 Thumbs.db

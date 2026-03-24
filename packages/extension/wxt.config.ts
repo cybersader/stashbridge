@@ -11,5 +11,10 @@ export default defineConfig({
     description: 'Sync localStorage across browsers and devices',
     permissions: ['storage', 'alarms', 'activeTab'],
     host_permissions: ['<all_urls>'],
+    icons: {
+      16: 'icon-16.png',
+      48: 'icon-48.png',
+      128: 'icon-128.png',
+    },
   },
 });
