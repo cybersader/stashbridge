@@ -7,6 +7,9 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'StashBridge',
+      logo: {
+        src: './src/assets/logo.svg',
+      },
       description: 'Sync localStorage across browsers and devices',
       social: {
         github: 'https://github.com/cybersader/stashbridge',

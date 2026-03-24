@@ -1,8 +1,12 @@
-# StashBridge
+<p align="center">
+  <img src="logo.svg" alt="StashBridge" width="128" height="128">
+</p>
 
-**Sync browser localStorage across browsers and devices — self-hosted, simple, last-write-wins.**
+<h1 align="center">StashBridge</h1>
 
-> Your browser stash, everywhere.
+<p align="center"><strong>Sync browser localStorage across browsers and devices — self-hosted, simple, last-write-wins.</strong></p>
+
+<p align="center"><em>Your browser stash, everywhere.</em></p>
 
 ---
 
