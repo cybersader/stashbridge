@@ -29,6 +29,19 @@ Then load the unpacked extension:
 3. Click **Load unpacked**
 4. Select the `packages/extension/.output/chrome-mv3/` folder
 
+### Updating (Developer Mode)
+
+When you pull new changes and rebuild:
+
+```bash
+git pull
+bun install
+cd packages/extension
+bun run build:chrome
+```
+
+Then go to `chrome://extensions` and click the **reload icon** (circular arrow) on the StashBridge card. No need to remove and re-add it — the extension stays loaded from the same folder.
+
 ## Firefox
 
 ### From Firefox Add-ons
